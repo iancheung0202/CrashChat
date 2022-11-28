@@ -13,6 +13,8 @@ if(isset($_GET['logout'])){
 if(isset($_POST['enter'])){
     if($_POST['name'] != ""){
         $_SESSION['name'] = stripslashes(htmlspecialchars($_POST['name']));
+        $logout_message = "<div class='msgln'><span class='join-info'>User <b class='user-name-joined'>". $_SESSION['name'] ."</b> has joined the chat.</span><br></div>";
+        file_put_contents("log.html", $logout_message, FILE_APPEND | LOCK_EX);
     }
     else{
         echo '<span class="error">Please type in a valid name.</span>';
@@ -22,7 +24,7 @@ if(isset($_POST['enter'])){
 function loginForm(){
     echo 
     '<div id="loginform">
-    <p>Please enter your name to continue!</p>
+    <p>Please enter your name to join the chat!</p>
     <form action="index.php" method="post">
       <label for="name">Name &mdash;</label>
       <input type="text" name="name" id="name" />
